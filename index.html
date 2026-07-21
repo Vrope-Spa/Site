@@ -183,6 +183,7 @@
       <li><a class="nav-link hover:text-snow transition" href="#galeria">Galería</a></li>
       <li><a class="nav-link hover:text-snow transition" href="#seguridad">Seguridad</a></li>
       <li><a class="nav-link hover:text-snow transition" href="#organizacion">Equipo</a></li>
+      <li><a class="nav-link inline-flex items-center gap-1.5 text-sky hover:text-snow transition" href="#verificar"><span class="material-symbols-outlined" style="font-size:17px;">verified</span>Verificar Certificado</a></li>
     </ul>
 
     <a href="#contacto" class="hidden lg:inline-flex items-center gap-2 bg-orange text-navy font-700 text-sm px-5 py-2.5 hover:bg-[#f0805f] transition-colors">
@@ -205,6 +206,7 @@
       <li><a class="mob-link block py-3 border-b border-sky/10" href="#galeria">Galería</a></li>
       <li><a class="mob-link block py-3 border-b border-sky/10" href="#seguridad">Seguridad</a></li>
       <li><a class="mob-link block py-3 border-b border-sky/10" href="#organizacion">Equipo</a></li>
+      <li><a class="mob-link flex items-center gap-2 py-3 border-b border-sky/10 text-sky" href="#verificar"><span class="material-symbols-outlined" style="font-size:18px;">verified</span>Verificar Certificado</a></li>
       <li><a class="mob-link mt-3 inline-flex items-center gap-2 bg-orange text-navy font-700 px-5 py-3" href="#contacto">Contacto</a></li>
     </ul>
   </div>
@@ -888,6 +890,186 @@
 </section>
 
 <!-- ===================================================== -->
+<!-- VERIFICACIÓN DE CERTIFICADOS DIGITALES                -->
+<!-- ===================================================== -->
+<section id="verificar" class="relative bg-deepblue py-24 sm:py-32 overflow-hidden">
+  <!-- separador superior (hairline) para cortar limpio con la sección anterior -->
+  <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky/35 to-transparent"></div>
+  <!-- textura sutil -->
+  <div class="absolute inset-0 hero-grid opacity-20 pointer-events-none"></div>
+
+  <div class="relative max-w-2xl mx-auto px-5 sm:px-8 text-center">
+    <span class="cert-emblem reveal">
+      <span class="material-symbols-outlined" style="font-size:30px;">verified_user</span>
+    </span>
+    <p class="eyebrow text-orange mt-6 mb-5 reveal">Certificados digitales</p>
+    <h2 class="text-snow font-800 tracking-tight leading-[1.05] text-3xl sm:text-4xl lg:text-[2.9rem] reveal">
+      Verifica la autenticidad de un certificado
+    </h2>
+    <p class="text-lightgrey/70 text-lg leading-relaxed mt-6 max-w-xl mx-auto reveal">
+      Ingresa el código de verificación que aparece en el documento para confirmar
+      sus datos y comprobar si se encuentra vigente.
+    </p>
+
+    <!-- Panel contenedor: "portal de verificación" -->
+    <div class="cert-panel reveal">
+      <form id="cert-form" novalidate>
+        <div class="cert-search">
+          <label for="cert-input" class="sr-only">Código de verificación</label>
+          <input id="cert-input" name="codigo" type="text"
+                 class="form-input cert-input"
+                 placeholder="Ej: y7xaetg5dWfZE6weKO8l"
+                 autocomplete="off" spellcheck="false" required />
+          <button id="cert-submit" type="submit" class="cert-btn">
+            <span class="btn-spinner" aria-hidden="true"></span>
+            <span class="btn-text">Verificar</span>
+            <span class="material-symbols-outlined btn-icon" style="font-size:19px;">verified</span>
+          </button>
+        </div>
+        <!-- Mensaje de error / aviso elegante (reutiliza .form-status del sitio) -->
+        <p id="cert-status" class="form-status cert-status" role="status" aria-live="polite" hidden></p>
+      </form>
+
+      <p class="cert-hint">
+        <span class="material-symbols-outlined" style="font-size:15px;">info</span>
+        El código se encuentra al pie de cada certificado emitido por Vrope.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Modal de resultados del certificado ── -->
+<div id="cert-modal" class="cert-modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="cert-modal-title" aria-hidden="true">
+  <div class="cert-modal-backdrop" data-cert-close></div>
+
+  <div class="cert-modal-card" role="document">
+    <button type="button" class="cert-modal-x" aria-label="Cerrar" data-cert-close>
+      <span class="material-symbols-outlined">close</span>
+    </button>
+
+    <p class="eyebrow text-sky mb-3">Certificado digital</p>
+
+    <div class="flex items-start justify-between gap-4 mb-6">
+      <h3 id="cert-modal-title" class="text-snow font-800 text-2xl leading-tight" data-cert="nombreInstalacion">—</h3>
+      <span class="cert-badge" data-cert="badge">—</span>
+    </div>
+
+    <dl class="cert-grid">
+      <div class="cert-row">
+        <dt class="cert-row-label">Cliente</dt>
+        <dd class="cert-row-value" data-cert="cliente">—</dd>
+      </div>
+      <div class="cert-row">
+        <dt class="cert-row-label">Ubicación</dt>
+        <dd class="cert-row-value" data-cert="ubicacion">—</dd>
+      </div>
+      <div class="cert-row">
+        <dt class="cert-row-label">Fecha de otorgamiento</dt>
+        <dd class="cert-row-value" data-cert="fechaOtorgamiento">—</dd>
+      </div>
+      <div class="cert-row">
+        <dt class="cert-row-label">Fecha de vencimiento</dt>
+        <dd class="cert-row-value" data-cert="fechaVencimiento">—</dd>
+      </div>
+    </dl>
+
+    <p class="cert-code">Código de verificación · <span class="cert-code-val" data-cert="codigo">—</span></p>
+
+    <a data-cert="link" href="#" target="_blank" rel="noopener" class="cert-pdf-btn">
+      <span class="material-symbols-outlined" style="font-size:19px;">picture_as_pdf</span>
+      Ver certificado (PDF)
+      <span class="material-symbols-outlined" style="font-size:17px;">open_in_new</span>
+    </a>
+  </div>
+</div>
+
+<style>
+  /* ── Emblema oficial ── */
+  .cert-emblem {
+    display:inline-grid; place-items:center; width:4rem; height:4rem; border-radius:9999px;
+    color:var(--f-sky); background:rgba(5,21,31,0.5); border:1px solid rgba(160,204,234,0.3);
+    box-shadow:0 0 0 6px rgba(160,204,234,0.06), inset 0 0 20px rgba(160,204,234,0.08);
+  }
+
+  /* ── Panel "portal de verificación" ── */
+  .cert-panel {
+    margin-top:2.5rem; padding:1.75rem; text-align:left;
+    background:rgba(5,21,31,0.5);
+    border:1px solid rgba(160,204,234,0.16);
+    box-shadow:0 24px 60px rgba(0,0,0,0.35);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  }
+  @media (min-width:640px) { .cert-panel { padding:2rem 2.25rem; } }
+
+  .cert-hint {
+    display:flex; align-items:center; gap:.45rem; margin-top:1rem;
+    font-size:.8rem; color:rgba(205,211,215,0.55);
+  }
+  .cert-hint .material-symbols-outlined { color:var(--f-sky); }
+
+  /* ── Buscador de certificados ── */
+  .cert-search { display:flex; flex-direction:column; gap:.75rem; text-align:left; }
+  @media (min-width:640px) { .cert-search { flex-direction:row; } }
+  .cert-input { flex:1; }
+  .cert-btn {
+    display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+    background:var(--f-accent); color:#05151F; font-weight:700;
+    padding:.75rem 1.9rem; white-space:nowrap; transition:background-color .3s;
+  }
+  .cert-btn:hover { background:#f0805f; }
+  .cert-btn:disabled { opacity:.7; cursor:not-allowed; }
+  #cert-form.is-loading .btn-spinner { display:inline-block; }
+  #cert-form.is-loading .btn-icon    { display:none; }
+  .cert-status { text-align:left; }
+  .cert-status[hidden] { display:none; }
+
+  /* ── Modal ── */
+  .cert-modal-overlay { position:fixed; inset:0; z-index:80; display:flex; align-items:center; justify-content:center; padding:1.25rem; }
+  .cert-modal-overlay.hidden { display:none; }
+  .cert-modal-backdrop { position:absolute; inset:0; background:rgba(5,21,31,0.72); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+  .cert-modal-card {
+    position:relative; width:100%; max-width:560px; max-height:90vh; overflow-y:auto;
+    background:#071e2c; border:1px solid rgba(160,204,234,0.18); padding:2rem;
+    box-shadow:0 30px 80px rgba(0,0,0,0.55);
+    animation:certIn .35s cubic-bezier(.2,.7,.2,1);
+  }
+  @keyframes certIn { from { opacity:0; transform:translateY(18px) scale(.98); } to { opacity:1; transform:none; } }
+  .cert-modal-x {
+    position:absolute; top:1rem; right:1rem; display:grid; place-items:center;
+    width:2.25rem; height:2.25rem; color:var(--f-sky);
+    border:1px solid rgba(160,204,234,0.2); transition:border-color .3s, color .3s;
+  }
+  .cert-modal-x:hover { color:var(--f-snow); border-color:var(--f-accent); }
+
+  .cert-badge {
+    display:inline-flex; align-items:center; gap:.4rem; flex-shrink:0;
+    padding:.4rem .8rem; font-size:.72rem; font-weight:800; letter-spacing:.14em;
+    text-transform:uppercase; border:1px solid transparent; white-space:nowrap;
+  }
+  .cert-badge.is-vigente { color:var(--f-ok);  background:var(--f-ok-bg);  border-color:rgba(52,211,153,0.4); }
+  .cert-badge.is-vencido { color:var(--f-err); background:var(--f-err-bg); border-color:rgba(248,113,113,0.4); }
+
+  .cert-grid { margin:0 0 1.25rem; }
+  .cert-row { display:flex; justify-content:space-between; gap:1rem; padding:.85rem 0; border-bottom:1px solid rgba(160,204,234,0.12); }
+  .cert-row-label { font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--f-sky); font-weight:700; flex-shrink:0; }
+  .cert-row-value { color:var(--f-snow); text-align:right; font-weight:500; }
+
+  .cert-code { font-size:.75rem; color:rgba(205,211,215,0.6); margin-bottom:1.25rem; word-break:break-all; }
+  .cert-code-val { color:var(--f-sky); font-weight:600; }
+
+  .cert-pdf-btn {
+    width:100%; display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+    background:var(--f-accent); color:#05151F; font-weight:700; padding:.9rem 1rem;
+    transition:background-color .3s;
+  }
+  .cert-pdf-btn:hover { background:#f0805f; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cert-modal-card { animation:none; }
+  }
+</style>
+
+<!-- ===================================================== -->
 <!-- CONTACTO                                              -->
 <!-- ===================================================== -->
 <section id="contacto" class="bg-snow text-navy py-24 sm:py-32">
@@ -1117,6 +1299,13 @@ const HERO_VIDEO_URL = "https://verticalspa.s3.us-west-2.amazonaws.com/videos/up
 const WHATSAPP_NUMBER  = "56973863091"; // ← REEMPLAZAR por el número real
 const WHATSAPP_MESSAGE = "Hola Vrope Spa, me gustaría cotizar un servicio."; // mensaje precargado
 
+/* ============================================================
+   CONFIG DE VERIFICACIÓN DE CERTIFICADOS
+   Endpoint público (S3) con el JSON de certificados, indexado
+   por su código de verificación.
+   ============================================================ */
+const CERTIFICATES_URL = "https://verticalspa.s3.us-west-2.amazonaws.com/digital_certificates/certificates.json";
+
 (function () {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const year = document.getElementById('year');
@@ -1327,6 +1516,175 @@ const WHATSAPP_MESSAGE = "Hola Vrope Spa, me gustaría cotizar un servicio."; //
         640: { slidesPerView: 2.2, spaceBetween: 20 },
         1024: { slidesPerView: 3.2, spaceBetween: 24 },
       },
+    });
+  }
+
+  /* ---------- Verificación de Certificados Digitales ---------- */
+  const certForm   = document.getElementById('cert-form');
+  const certInput  = document.getElementById('cert-input');
+  const certSubmit = document.getElementById('cert-submit');
+  const certStatus = document.getElementById('cert-status');
+  const certModal  = document.getElementById('cert-modal');
+  const certBtnTxt = certSubmit ? certSubmit.querySelector('.btn-text') : null;
+
+  let certCache = null;      // JSON cacheado tras la primera consulta exitosa
+  let certLastFocus = null;  // para restaurar el foco al cerrar el modal
+
+  const certShowStatus = (type, msg) => {
+    if (!certStatus) return;
+    certStatus.hidden = false;
+    certStatus.textContent = msg;
+    certStatus.classList.remove('is-ok', 'is-err');
+    certStatus.classList.add(type === 'ok' ? 'is-ok' : 'is-err');
+  };
+  const certClearStatus = () => { if (certStatus) certStatus.hidden = true; };
+
+  // Parser de fechas tolerante: ISO (YYYY-MM-DD) y DD-MM-YYYY / DD/MM/YYYY
+  const certParseDate = (value) => {
+    if (!value) return null;
+    const s = String(value).trim();
+    let m = s.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})/);
+    if (m) return new Date(+m[1], +m[2] - 1, +m[3]);
+    m = s.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})/);
+    if (m) return new Date(+m[3], +m[2] - 1, +m[1]);
+    const d = new Date(s);
+    return isNaN(d.getTime()) ? null : d;
+  };
+  const certFmtDate = (value) => {
+    const d = certParseDate(value);
+    if (!d) return value ? String(value) : '—';
+    return d.toLocaleDateString('es-CL', { day: '2-digit', month: 'long', year: 'numeric' });
+  };
+
+  // Busca el registro por su clave/ID; tolera JSON indexado por ID,
+  // contenedores anidados (p.ej. { certificates: {...} }) o arreglos.
+  const certFindRecord = (data, id) => {
+    if (!data || typeof data !== 'object') return null;
+    const norm = (v) => String(v).trim().toLowerCase();
+    const target = norm(id);
+    if (!Array.isArray(data)) {
+      if (data[id]) return data[id];
+      const key = Object.keys(data).find((k) => norm(k) === target);
+      if (key) return data[key];
+      for (const val of Object.values(data)) {
+        if (val && typeof val === 'object') {
+          const found = certFindRecord(val, id);
+          if (found) return found;
+        }
+      }
+      return null;
+    }
+    return data.find((o) => o && [o.id, o.codigo, o.codigoVerificacion]
+      .some((k) => k != null && norm(k) === target)) || null;
+  };
+
+  const certSet = (key, text) => {
+    const el = certModal && certModal.querySelector('[data-cert="' + key + '"]');
+    if (el) el.textContent = (text == null || text === '') ? '—' : text;
+  };
+
+  const certOpenModal = (record, id) => {
+    if (!certModal) return;
+    const cliente   = record.cliente || record.client || '';
+    const instal    = record.nombreInstalacion || record.instalacion || cliente || 'Certificado digital';
+    const direccion = record.direccion || record.direccionInstalacion || '';
+    const region    = record.region || '';
+    const otorg     = record.fechaOtorgamiento || record.fechaEmision || '';
+    const vence     = record.fechaVencimiento || '';
+    const link      = record.linkCertificado || record.link || record.pdf || record.url || '';
+
+    // Estado dinámico: comparar fechaVencimiento con la fecha actual
+    const venc = certParseDate(vence);
+    let vigente = true;
+    if (venc) {
+      const end = new Date(venc);
+      end.setHours(23, 59, 59, 999); // el día de vencimiento aún cuenta como vigente
+      vigente = end.getTime() >= Date.now();
+    }
+
+    certSet('nombreInstalacion', instal);
+    certSet('cliente', cliente);
+    certSet('ubicacion', [direccion, region].filter(Boolean).join(', '));
+    certSet('fechaOtorgamiento', certFmtDate(otorg));
+    certSet('fechaVencimiento', certFmtDate(vence));
+    certSet('codigo', id);
+
+    const badge = certModal.querySelector('[data-cert="badge"]');
+    if (badge) {
+      badge.textContent = vigente ? 'Vigente' : 'Vencido';
+      badge.classList.remove('is-vigente', 'is-vencido');
+      badge.classList.add(vigente ? 'is-vigente' : 'is-vencido');
+    }
+
+    const linkEl = certModal.querySelector('[data-cert="link"]');
+    if (linkEl) {
+      if (link) { linkEl.href = link; linkEl.classList.remove('hidden'); }
+      else { linkEl.removeAttribute('href'); linkEl.classList.add('hidden'); }
+    }
+
+    certLastFocus = document.activeElement;
+    certModal.classList.remove('hidden');
+    certModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (lenis) lenis.stop();
+    const closeBtn = certModal.querySelector('.cert-modal-x');
+    if (closeBtn) closeBtn.focus();
+    certClearStatus();
+  };
+
+  const certCloseModal = () => {
+    if (!certModal || certModal.classList.contains('hidden')) return;
+    certModal.classList.add('hidden');
+    certModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lenis) lenis.start();
+    if (certLastFocus && certLastFocus.focus) certLastFocus.focus();
+    else if (certInput) certInput.focus();
+  };
+
+  if (certForm) {
+    certForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = (certInput.value || '').trim();
+      if (!id) {
+        certShowStatus('err', 'Ingresa un código de verificación para continuar.');
+        certInput.focus();
+        return;
+      }
+
+      certClearStatus();
+      certForm.classList.add('is-loading');
+      certSubmit.disabled = true;
+      if (certBtnTxt) certBtnTxt.textContent = 'Cargando…';
+
+      try {
+        if (!certCache) {
+          const res = await fetch(CERTIFICATES_URL, { cache: 'no-store' });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          certCache = await res.json();
+        }
+        const record = certFindRecord(certCache, id);
+        if (!record) {
+          certShowStatus('err', 'No encontramos un certificado con el código “' + id + '”. Revísalo e inténtalo nuevamente.');
+          return;
+        }
+        certOpenModal(record, id);
+      } catch (err) {
+        certShowStatus('err', 'No pudimos consultar los certificados en este momento. Revisa tu conexión e inténtalo otra vez.');
+      } finally {
+        certForm.classList.remove('is-loading');
+        certSubmit.disabled = false;
+        if (certBtnTxt) certBtnTxt.textContent = 'Verificar';
+      }
+    });
+  }
+
+  if (certModal) {
+    certModal.addEventListener('click', (e) => {
+      if (e.target.closest('[data-cert-close]')) certCloseModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !certModal.classList.contains('hidden')) certCloseModal();
     });
   }
 
