@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vrope Spa — Soluciones a la altura de cada desafío</title>
+<meta name="description" content="Vrope Spa: empresa chilena especializada en trabajos verticales, mantenimiento de infraestructura y seguridad en altura." />
+
+<!-- ================= FUENTES ================= -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+<!-- ================= SWIPER CSS ================= -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<!-- ================= TAILWIND ================= -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy:     '#05151F',
+          deepblue: '#133450',
+          orange:   '#EC6240',
+          sky:      '#A0CCEA',
+          softblue: '#BFD6ED',
+          lightgrey:'#CDD3D7',
+          snow:     '#F9F9F9',
+          beige:    '#F0BCA5',
+        },
+        fontFamily: {
+          sans: ['"Maven Pro"', 'system-ui', 'sans-serif'],
+        },
+        fontWeight: {
+          400: '400', 500: '500', 600: '600', 700: '700', 800: '800', 900: '900',
+        },
+        letterSpacing: {
+          ultra: '0.32em',
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  :root { color-scheme: dark; }
+  html { scroll-behavior: auto; } /* Lenis toma el control */
+  body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+  /* Enlaces / foco accesible */
+  a, button { outline-offset: 3px; }
+  :focus-visible { outline: 2px solid #EC6240; outline-offset: 3px; border-radius: 2px; }
+
+  /* Eyebrow / labels editoriales */
+  .eyebrow {
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+  }
+
+  /* Placeholder de imagen: proporción + etiqueta */
+  .imgph {
+    position: relative;
+    overflow: hidden;
+    background:
+      repeating-linear-gradient(45deg, rgba(160,204,234,0.05) 0 12px, transparent 12px 24px),
+      linear-gradient(160deg, #0a2233, #05151F);
+    border: 1px solid rgba(160,204,234,0.18);
+  }
+  .imgph::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(120% 120% at 50% 0%, rgba(19,52,80,0.35), transparent 60%);
+  }
+  .imgph .imgph-tag {
+    position: absolute; left: 14px; bottom: 12px;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #A0CCEA; background: rgba(5,21,31,0.6);
+    border: 1px solid rgba(160,204,234,0.25);
+    padding: 5px 9px; backdrop-filter: blur(4px);
+  }
+  .imgph .imgph-icon {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    color: rgba(160,204,234,0.28); font-size: 44px;
+  }
+
+  /* Header glass */
+  .glass {
+    background: rgba(5,21,31,0.55);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid rgba(160,204,234,0.12);
+  }
+  #site-header { transition: background-color .4s ease, backdrop-filter .4s ease, border-color .4s ease, transform .4s ease; }
+
+  /* Hero atmósfera (fallback si el video no carga) */
+  .hero-fallback {
+    background:
+      radial-gradient(90% 70% at 75% 15%, rgba(19,52,80,0.9), transparent 60%),
+      radial-gradient(80% 90% at 10% 90%, rgba(236,98,64,0.10), transparent 55%),
+      linear-gradient(180deg, #05151F 0%, #071e2c 45%, #05151F 100%);
+  }
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(160,204,234,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(160,204,234,0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(120% 80% at 50% 30%, #000 30%, transparent 85%);
+  }
+
+  /* Marquee barra de indicadores */
+  .marquee { display: flex; width: max-content; animation: marquee 34s linear infinite; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  .marquee:hover { animation-play-state: paused; }
+
+  /* Línea de vida (signature) */
+  .lifeline-track { background: rgba(160,204,234,0.16); }
+  .lifeline-fill {
+    background: linear-gradient(#EC6240, #f0805f);
+    box-shadow: 0 0 18px rgba(236,98,64,0.55);
+    height: 0%;
+  }
+  .anchor-node {
+    border: 2px solid rgba(160,204,234,0.5);
+    background: #05151F;
+    transition: all .45s cubic-bezier(.2,.7,.2,1);
+  }
+  .anchor-node.is-active {
+    border-color: #EC6240;
+    background: #EC6240;
+    box-shadow: 0 0 0 6px rgba(236,98,64,0.18), 0 0 22px rgba(236,98,64,0.6);
+  }
+  .descender {
+    box-shadow: 0 0 22px rgba(236,98,64,0.75);
+  }
+
+  /* Reveal base */
+  .reveal { opacity: 0; transform: translateY(28px); }
+  .is-in .reveal, .reveal.is-in { opacity: 1; transform: none; }
+
+  /* Cards */
+  .svc-card { transition: transform .5s cubic-bezier(.2,.7,.2,1), border-color .5s, background-color .5s; }
+  .svc-card:hover { transform: translateY(-6px); border-color: rgba(236,98,64,0.55); }
+
+  /* Swiper tweaks */
+  .swiper { padding-bottom: 4px; }
+  .exp-swiper .swiper-slide { height: auto; }
+
+  ::selection { background: #EC6240; color: #05151F; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee { animation: none; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    * { scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+
+<body class="bg-navy text-lightgrey font-sans antialiased selection:bg-orange">
+
+<!-- ===================================================== -->
+<!-- HEADER                                                -->
+<!-- ===================================================== -->
+<header id="site-header" class="fixed top-0 inset-x-0 z-50">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 h-[72px] flex items-center justify-between">
+    <!-- LOGO PLACEHOLDER -->
+    <a href="#hero" class="flex items-center gap-3 group" aria-label="Vrope — inicio">
+      <img src="https://verticalspa.s3.us-west-2.amazonaws.com/logotypes/LOGO_8.png" alt="Logo Vrope Spa" class="h-10 w-auto object-contain transition-transform group-hover:scale-105" />
+    </a>
+
+    <!-- NAV DESKTOP -->
+    <ul class="hidden lg:flex items-center gap-7 text-sm font-500 text-lightgrey/80">
+      <li><a class="nav-link hover:text-snow transition" href="#nosotros">Nosotros</a></li>
+      <li><a class="nav-link hover:text-snow transition" href="#evolucion">Evolución</a></li>
+      <li><a class="nav-link hover:text-snow transition" href="#servicios">Servicios</a></li>
+      <li><a class="nav-link hover:text-snow transition" href="#galeria">Galería</a></li>
+      <li><a class="nav-link hover:text-snow transition" href="#seguridad">Seguridad</a></li>
+      <li><a class="nav-link hover:text-snow transition" href="#organizacion">Equipo</a></li>
+    </ul>
+
+    <a href="#contacto" class="hidden lg:inline-flex items-center gap-2 bg-orange text-navy font-700 text-sm px-5 py-2.5 hover:bg-[#f0805f] transition-colors">
+      Contacto
+      <span class="material-symbols-outlined" style="font-size:18px;">arrow_outward</span>
+    </a>
+
+    <!-- BURGER -->
+    <button id="burger" class="lg:hidden grid place-items-center w-10 h-10 text-snow" aria-label="Abrir menú" aria-expanded="false">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </nav>
+
+  <!-- MENU MÓVIL -->
+  <div id="mobile-menu" class="lg:hidden hidden glass px-5 pb-6 pt-2">
+    <ul class="flex flex-col gap-1 text-lightgrey/90">
+      <li><a class="mob-link block py-3 border-b border-sky/10" href="#nosotros">Nosotros</a></li>
+      <li><a class="mob-link block py-3 border-b border-sky/10" href="#evolucion">Evolución</a></li>
+      <li><a class="mob-link block py-3 border-b border-sky/10" href="#servicios">Servicios</a></li>
+      <li><a class="mob-link block py-3 border-b border-sky/10" href="#galeria">Galería</a></li>
+      <li><a class="mob-link block py-3 border-b border-sky/10" href="#seguridad">Seguridad</a></li>
+      <li><a class="mob-link block py-3 border-b border-sky/10" href="#organizacion">Equipo</a></li>
+      <li><a class="mob-link mt-3 inline-flex items-center gap-2 bg-orange text-navy font-700 px-5 py-3" href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ===================================================== -->
+<!-- HERO                                                  -->
+<!-- ===================================================== -->
+<section id="hero" class="relative min-h-[100svh] flex items-end overflow-hidden">
+  <!-- Fallback / atmósfera -->
+  <div class="absolute inset-0 hero-fallback"></div>
+  <div class="absolute inset-0 hero-grid opacity-70"></div>
+
+  <!-- VIDEO FULLSCREEN -->
+  <video id="hero-video"
+         class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+         autoplay muted loop playsinline preload="auto"
+         aria-hidden="true"></video>
+  <!--div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+    <iframe
+      src="https://player.vimeo.com/video/1211511623?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1&autopause=0"
+      class="w-full h-full object-cover scale-125 opacity-60"
+      allow="autoplay; fullscreen"
+      style="border:none;">
+    </iframe>
+  </div -->
+
+  <!-- Overlay legibilidad -->
+  <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/55 to-navy/20"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-navy/70 to-transparent"></div>
+
+  <!-- Contenido -->
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 pb-20 sm:pb-24">
+    <p class="eyebrow text-sky mb-6 hero-anim">Trabajos verticales · Seguridad en altura</p>
+
+    <h1 class="hero-anim text-snow font-800 tracking-tight leading-[0.98] max-w-4xl
+               text-[2.6rem] sm:text-6xl lg:text-7xl">
+      Soluciones a la altura<br class="hidden sm:block" /> de cada desafío
+    </h1>
+
+    <p class="hero-anim mt-7 max-w-xl text-lightgrey/85 text-base sm:text-lg leading-relaxed">
+      Empresa chilena especializada en trabajos verticales, mantenimiento de infraestructura
+      y seguridad en altura, con una cultura técnica construida sobre el acceso por cuerdas.
+    </p>
+
+    <div class="hero-anim mt-9 flex flex-wrap items-center gap-4">
+      <a href="#nosotros" class="inline-flex items-center gap-2 bg-orange text-navy font-700 px-6 py-3.5 hover:bg-[#f0805f] transition-colors">
+        Conocer Vrope
+        <span class="material-symbols-outlined" style="font-size:19px;">south</span>
+      </a>
+      <a href="#servicios" class="inline-flex items-center gap-2 border border-sky/40 text-snow font-600 px-6 py-3.5 hover:bg-white/5 transition-colors">
+        Ver servicios
+      </a>
+    </div>
+  </div>
+
+  <!-- Indicador de scroll -->
+  <div class="absolute bottom-6 left-5 sm:left-8 z-10 hidden sm:flex flex-col items-center gap-2 text-sky/70">
+    <span class="text-[10px] tracking-ultra rotate-90 origin-center translate-y-6">SCROLL</span>
+    <span class="w-px h-14 bg-gradient-to-b from-sky/60 to-transparent mt-10"></span>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- BARRA DE INDICADORES                                  -->
+<!-- ===================================================== -->
+<div class="bg-deepblue border-y border-sky/15 overflow-hidden">
+  <div class="marquee py-4">
+    <!-- grupo 1 -->
+    <div class="flex items-center shrink-0">
+      <span class="mq-item">Acceso por cuerdas</span>
+      <span class="mq-item">EN795:2012</span>
+      <span class="mq-item">Líneas de vida Tipo C</span>
+      <span class="mq-item">Sistemas anticaídas</span>
+      <span class="mq-item">Trabajo vertical</span>
+      <span class="mq-item">Desde 2017</span>
+    </div>
+    <!-- grupo 2 (duplicado para loop continuo) -->
+    <div class="flex items-center shrink-0" aria-hidden="true">
+      <span class="mq-item">Acceso por cuerdas</span>
+      <span class="mq-item">EN795:2012</span>
+      <span class="mq-item">Líneas de vida Tipo C</span>
+      <span class="mq-item">Sistemas anticaídas</span>
+      <span class="mq-item">Trabajo vertical</span>
+      <span class="mq-item">Desde 2017</span>
+    </div>
+  </div>
+</div>
+<style>
+  .mq-item { display:inline-flex; align-items:center; gap:.9rem; color:#BFD6ED; font-weight:600;
+             font-size:.86rem; letter-spacing:.06em; padding:0 2.2rem; white-space:nowrap; }
+  .mq-item::before { content:""; width:6px; height:6px; background:#EC6240; display:inline-block; transform:rotate(45deg); }
+</style>
+
+<!-- ===================================================== -->
+<!-- QUIÉNES SOMOS                                         -->
+<!-- ===================================================== -->
+<section id="nosotros" class="bg-snow text-navy py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+    <div class="reveal">
+      <p class="eyebrow text-orange mb-5">Quiénes somos</p>
+      <h2 class="font-800 tracking-tight leading-[1.05] text-3xl sm:text-4xl lg:text-[2.9rem] mb-7">
+        Rigurosidad técnica y cultura de seguridad, desde la cuerda hacia arriba.
+      </h2>
+      <p class="text-navy/70 text-lg leading-relaxed mb-5">
+        Vrope Spa es una empresa chilena especializada en trabajos verticales, mantenimiento
+        de infraestructura y seguridad en altura.
+      </p>
+      <p class="text-navy/70 text-lg leading-relaxed">
+        Nació enfocada en la limpieza de vidrios y fachadas mediante acceso por cuerdas,
+        una disciplina que exige rigurosidad técnica y una sólida cultura de seguridad —
+        los mismos principios que hoy sostienen cada uno de nuestros servicios.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-8">
+        <div>
+          <p class="font-800 text-2xl text-deepblue">2017</p>
+          <p class="text-sm text-navy/55 mt-1">Año de fundación</p>
+        </div>
+        <div class="w-px bg-navy/10"></div>
+        <div>
+          <p class="font-800 text-2xl text-deepblue">Acceso por cuerdas</p>
+          <p class="text-sm text-navy/55 mt-1">Disciplina de origen</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Imagen placeholder -->
+    <div class="reveal">
+      <div class="imgph aspect-[4/5] w-full">
+        <img src="https://verticalspa.s3.us-west-2.amazonaws.com/work_images/fachada.jpeg" alt="Técnico trabajando en fachada" class="w-full h-full object-cover" />
+        <span class="imgph-tag"><span class="material-symbols-outlined" style="font-size:14px;">photo_camera</span> Técnico trabajando en fachada</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- EVOLUCIÓN  (SIGNATURE: LÍNEA DE VIDA)                 -->
+<!-- ===================================================== -->
+<section id="evolucion" class="relative bg-navy py-24 sm:py-32 overflow-hidden">
+  <!-- fondo sutil -->
+  <div class="absolute inset-0 hero-grid opacity-40 pointer-events-none"></div>
+
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="max-w-2xl mb-16 sm:mb-20 reveal">
+      <p class="eyebrow text-orange mb-5">Evolución</p>
+      <h2 class="text-snow font-800 tracking-tight leading-[1.05] text-3xl sm:text-4xl lg:text-[2.9rem]">
+        Una trayectoria que asciende, etapa tras etapa.
+      </h2>
+      <p class="text-lightgrey/70 text-lg leading-relaxed mt-6">
+        Como en una línea de vida, cada avance se ancla en el anterior. Así creció Vrope:
+        de la limpieza especializada a una empresa integral de trabajos verticales.
+      </p>
+    </div>
+
+    <!-- Track + etapas -->
+    <div id="evo-wrap" class="relative pl-12 sm:pl-0">
+      <!-- Línea de vida vertical -->
+      <div class="absolute top-0 bottom-0 left-4 sm:left-1/2 sm:-translate-x-1/2 w-[3px] lifeline-track"></div>
+      <div id="lifeline-fill" class="absolute top-0 left-4 sm:left-1/2 sm:-translate-x-1/2 w-[3px] lifeline-fill"></div>
+
+      <!-- Descensor móvil -->
+      <div id="descender" class="absolute left-4 sm:left-1/2 -translate-x-1/2 top-0 z-20 descender
+                                 grid place-items-center w-8 h-8 rounded-full bg-orange text-navy">
+        <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
+      </div>
+
+      <!-- ETAPA 1 -->
+      <article class="evo-step relative grid sm:grid-cols-2 gap-6 sm:gap-16 pb-16 sm:pb-24">
+        <div class="anchor-node absolute left-4 sm:left-1/2 -translate-x-1/2 top-1 z-10 w-5 h-5 rounded-full"></div>
+        <div class="sm:text-right sm:pr-12 reveal">
+          <span class="eyebrow text-sky/70">Etapa 01 · Origen</span>
+          <h3 class="text-snow font-700 text-2xl mt-3 mb-3">Limpieza por acceso por cuerdas</h3>
+          <p class="text-lightgrey/70 leading-relaxed">
+            Especialización en limpieza de vidrios y fachadas mediante acceso por cuerdas,
+            estableciendo desde el inicio los estándares técnicos y de seguridad de la empresa.
+          </p>
+        </div>
+        <div class="hidden sm:block"></div>
+      </article>
+
+      <!-- ETAPA 2 -->
+      <article class="evo-step relative grid sm:grid-cols-2 gap-6 sm:gap-16 pb-16 sm:pb-24">
+        <div class="anchor-node absolute left-4 sm:left-1/2 -translate-x-1/2 top-1 z-10 w-5 h-5 rounded-full"></div>
+        <div class="hidden sm:block"></div>
+        <div class="sm:pl-12 reveal">
+          <span class="eyebrow text-sky/70">Etapa 02 · Expansión</span>
+          <h3 class="text-snow font-700 text-2xl mt-3 mb-4">Ampliación de servicios</h3>
+          <ul class="space-y-2 text-lightgrey/75">
+            <li class="evo-li">Aseo industrial</li>
+            <li class="evo-li">Hidrolavados</li>
+            <li class="evo-li">Mantenimientos generales</li>
+            <li class="evo-li">Reparación de sellos</li>
+            <li class="evo-li">Levantamientos técnicos</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ETAPA 3 -->
+      <article class="evo-step relative grid sm:grid-cols-2 gap-6 sm:gap-16">
+        <div class="anchor-node absolute left-4 sm:left-1/2 -translate-x-1/2 top-1 z-10 w-5 h-5 rounded-full"></div>
+        <div class="sm:text-right sm:pr-12 reveal">
+          <span class="eyebrow text-sky/70">Etapa 03 · Consolidación</span>
+          <h3 class="text-snow font-700 text-2xl mt-3 mb-4">Empresa integral especializada</h3>
+          <ul class="space-y-2 text-lightgrey/75 sm:flex sm:flex-col sm:items-end">
+            <li class="evo-li sm:flex-row-reverse">Trabajos verticales</li>
+            <li class="evo-li sm:flex-row-reverse">Mantenimiento de infraestructura</li>
+            <li class="evo-li sm:flex-row-reverse">Seguridad en altura</li>
+            <li class="evo-li sm:flex-row-reverse">Ingeniería</li>
+            <li class="evo-li sm:flex-row-reverse">Atención de emergencias técnicas</li>
+          </ul>
+        </div>
+        <div class="hidden sm:block"></div>
+      </article>
+    </div>
+  </div>
+</section>
+<style>
+  .evo-li { display:flex; align-items:center; gap:.6rem; }
+  .evo-li::before { content:""; width:6px; height:6px; background:#EC6240; transform:rotate(45deg); flex:none; }
+</style>
+
+<!-- ===================================================== -->
+<!-- QUÉ PROBLEMAS RESUELVE                                -->
+<!-- ===================================================== -->
+<section id="problemas" class="bg-deepblue py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="max-w-2xl mb-14 reveal">
+      <p class="eyebrow text-orange mb-5">Qué resolvemos</p>
+      <h2 class="text-snow font-800 tracking-tight leading-[1.05] text-3xl sm:text-4xl lg:text-[2.9rem]">
+        Desafíos que exigen altura, precisión y método.
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="reveal border border-sky/15 bg-navy/40 p-7">
+        <span class="material-symbols-outlined text-orange mb-5" style="font-size:34px;">cable</span>
+        <h3 class="text-snow font-700 text-lg mb-2">Acceso a puntos críticos</h3>
+        <p class="text-lightgrey/65 text-sm leading-relaxed">Intervención de fachadas y estructuras de difícil acceso mediante técnicas de acceso por cuerdas y carro colgante.</p>
+      </div>
+      <div class="reveal border border-sky/15 bg-navy/40 p-7">
+        <span class="material-symbols-outlined text-orange mb-5" style="font-size:34px;">verified_user</span>
+        <h3 class="text-snow font-700 text-lg mb-2">Cumplimiento en altura</h3>
+        <p class="text-lightgrey/65 text-sm leading-relaxed">Sistemas anticaídas, anclajes certificados EN795:2012 y líneas de vida Tipo C para trabajar seguro en altura.</p>
+      </div>
+      <div class="reveal border border-sky/15 bg-navy/40 p-7">
+        <span class="material-symbols-outlined text-orange mb-5" style="font-size:34px;">construction</span>
+        <h3 class="text-snow font-700 text-lg mb-2">Continuidad de infraestructura</h3>
+        <p class="text-lightgrey/65 text-sm leading-relaxed">Mantenimientos generales, reparación de sellos y levantamientos técnicos que prolongan la vida útil de cada instalación.</p>
+      </div>
+      <div class="reveal border border-sky/15 bg-navy/40 p-7">
+        <span class="material-symbols-outlined text-orange mb-5" style="font-size:34px;">emergency</span>
+        <h3 class="text-snow font-700 text-lg mb-2">Emergencias técnicas</h3>
+        <p class="text-lightgrey/65 text-sm leading-relaxed">Atención de emergencias técnicas con equipos formados para responder con rapidez y control operativo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- SERVICIOS                                             -->
+<!-- ===================================================== -->
+<section id="servicios" class="bg-snow text-navy py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14 reveal">
+      <div class="max-w-2xl">
+        <p class="eyebrow text-orange mb-5">Servicios</p>
+        <h2 class="font-800 tracking-tight leading-[1.05] text-3xl sm:text-4xl lg:text-[2.9rem]">
+          Tres frentes, una misma disciplina.
+        </h2>
+      </div>
+      <p class="text-navy/55 max-w-sm text-sm leading-relaxed">
+        Cada línea de servicio se ejecuta bajo los mismos protocolos técnicos y de seguridad que definen a Vrope.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6">
+      <!-- LIMPIEZA -->
+      <div class="svc-card bg-navy text-lightgrey p-8 border border-transparent">
+        <div class="flex items-center justify-between mb-6">
+          <span class="material-symbols-outlined text-orange" style="font-size:36px;">cleaning_services</span>
+          <span class="text-sky/40 font-800 text-4xl">01</span>
+        </div>
+        <h3 class="text-snow font-700 text-2xl mb-5">Limpieza</h3>
+        <ul class="space-y-3 text-sm">
+          <li class="svc-li">Limpieza de vidrios</li>
+          <li class="svc-li">Limpieza mediante acceso por cuerdas</li>
+          <li class="svc-li">Limpieza mediante carro colgante</li>
+          <li class="svc-li">Aseo industrial</li>
+          <li class="svc-li">Hidrolavados</li>
+        </ul>
+      </div>
+
+      <!-- MANTENIMIENTO -->
+      <div class="svc-card bg-navy text-lightgrey p-8 border border-transparent">
+        <div class="flex items-center justify-between mb-6">
+          <span class="material-symbols-outlined text-orange" style="font-size:36px;">build</span>
+          <span class="text-sky/40 font-800 text-4xl">02</span>
+        </div>
+        <h3 class="text-snow font-700 text-2xl mb-5">Mantenimiento</h3>
+        <ul class="space-y-3 text-sm">
+          <li class="svc-li">Mantenimientos generales</li>
+          <li class="svc-li">Reparación de sellos</li>
+          <li class="svc-li">Levantamientos técnicos</li>
+          <li class="svc-li">Planos de evacuación</li>
+          <li class="svc-li">Planes de emergencia</li>
+        </ul>
+      </div>
+
+      <!-- SEGURIDAD -->
+      <div class="svc-card bg-navy text-lightgrey p-8 border border-transparent">
+        <div class="flex items-center justify-between mb-6">
+          <span class="material-symbols-outlined text-orange" style="font-size:36px;">health_and_safety</span>
+          <span class="text-sky/40 font-800 text-4xl">03</span>
+        </div>
+        <h3 class="text-snow font-700 text-2xl mb-5">Seguridad</h3>
+        <ul class="space-y-3 text-sm">
+          <li class="svc-li">Sistemas anticaídas</li>
+          <li class="svc-li">Instalación y certificación de anclajes EN795:2012</li>
+          <li class="svc-li">Instalación de líneas de vida Tipo C</li>
+          <li class="svc-li">Atención de emergencias técnicas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .svc-li { display:flex; gap:.65rem; align-items:flex-start; line-height:1.4; color:rgba(205,211,215,0.85); }
+  .svc-li::before { content:"add"; font-family:'Material Symbols Outlined'; font-size:16px; color:#EC6240; margin-top:1px; flex:none; }
+</style>
+
+<!-- ===================================================== -->
+<!-- SEGURIDAD Y NORMATIVA                                 -->
+<!-- ===================================================== -->
+<section id="seguridad" class="relative bg-navy py-24 sm:py-32 overflow-hidden">
+  <div class="absolute inset-0 hero-grid opacity-30 pointer-events-none"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <p class="eyebrow text-orange mb-5">Seguridad y normativa</p>
+      <h2 class="text-snow font-800 tracking-tight leading-[1.05] text-3xl sm:text-4xl lg:text-[2.9rem] mb-7">
+        La seguridad no es una etapa. Es el sistema completo.
+      </h2>
+      <p class="text-lightgrey/70 text-lg leading-relaxed mb-8">
+        Toda intervención en altura se sostiene sobre sistemas anticaídas y anclajes
+        certificados. Instalamos, certificamos y respondemos con el mismo estándar técnico
+        que define a Vrope desde su origen.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <span class="norm-chip">EN795:2012</span>
+        <span class="norm-chip">Línea de vida Tipo C</span>
+        <span class="norm-chip">Sistemas anticaídas</span>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-5 reveal">
+      <div class="border border-sky/15 bg-deepblue/40 p-7">
+        <span class="material-symbols-outlined text-orange mb-4" style="font-size:32px;">home_improvement_and_tools</span>
+        <h3 class="text-snow font-700 mb-2">Anclajes certificados</h3>
+        <p class="text-lightgrey/60 text-sm leading-relaxed">Instalación y certificación de anclajes bajo norma EN795:2012.</p>
+      </div>
+      <div class="border border-sky/15 bg-deepblue/40 p-7">
+        <span class="material-symbols-outlined text-orange mb-4" style="font-size:32px;">horizontal_rule</span>
+        <h3 class="text-snow font-700 mb-2">Líneas de vida Tipo C</h3>
+        <p class="text-lightgrey/60 text-sm leading-relaxed">Instalación de líneas de vida flexibles horizontales Tipo C.</p>
+      </div>
+      <div class="border border-sky/15 bg-deepblue/40 p-7">
+        <span class="material-symbols-outlined text-orange mb-4" style="font-size:32px;">shield</span>
+        <h3 class="text-snow font-700 mb-2">Sistemas anticaídas</h3>
+        <p class="text-lightgrey/60 text-sm leading-relaxed">Diseño e implementación de sistemas de protección contra caídas.</p>
+      </div>
+      <div class="border border-sky/15 bg-deepblue/40 p-7">
+        <span class="material-symbols-outlined text-orange mb-4" style="font-size:32px;">emergency</span>
+        <h3 class="text-snow font-700 mb-2">Emergencias técnicas</h3>
+        <p class="text-lightgrey/60 text-sm leading-relaxed">Atención especializada ante emergencias técnicas en altura, con equipos formados y protocolos de seguridad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .norm-chip { display:inline-flex; align-items:center; gap:.5rem; border:1px solid rgba(236,98,64,0.5);
+               color:#F0BCA5; font-weight:700; font-size:.78rem; letter-spacing:.08em; padding:.5rem .9rem; }
+</style>
+
+<!-- ===================================================== -->
+<!-- CRECIMIENTO (CONTADORES)                              -->
+<!-- ===================================================== -->
+<section id="crecimiento" class="bg-orange text-navy py-20 sm:py-24">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <p class="eyebrow text-navy/70 mb-10 reveal">Crecimiento desde 2017</p>
+    <div class="grid sm:grid-cols-3 gap-10 sm:gap-6">
+      <div class="reveal">
+        <p class="counter font-900 text-5xl sm:text-6xl lg:text-7xl leading-none" data-target="15" data-prefix="+">+0</p>
+        <p class="mt-3 font-600 text-navy/75">Clientes</p>
+      </div>
+      <div class="reveal sm:border-x border-navy/15 sm:px-6">
+        <p class="counter font-900 text-5xl sm:text-6xl lg:text-7xl leading-none" data-target="50" data-prefix="+">+0</p>
+        <p class="mt-3 font-600 text-navy/75">Instalaciones</p>
+      </div>
+      <div class="reveal">
+        <p class="counter font-900 text-5xl sm:text-6xl lg:text-7xl leading-none" data-target="1000" data-prefix="+">+0</p>
+        <p class="mt-3 font-600 text-navy/75">Servicios realizados</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CAPACIDADES OPERACIONALES                             -->
+<!-- ===================================================== -->
+<section id="capacidades" class="bg-snow text-navy py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="max-w-2xl mb-14 reveal">
+      <p class="eyebrow text-orange mb-5">Capacidades operacionales</p>
+      <h2 class="font-800 tracking-tight leading-[1.05] text-3xl sm:text-4xl lg:text-[2.9rem]">
+        Método en terreno, respaldo en la gestión.
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
+      <div class="cap-item reveal"><span class="material-symbols-outlined">cable</span><div><h3>Acceso por cuerdas</h3><p>Técnica vertical como base operativa de la empresa.</p></div></div>
+      <div class="cap-item reveal"><span class="material-symbols-outlined">gondola_lift</span><div><h3>Carro colgante</h3><p>Limpieza y trabajo en fachadas mediante carro colgante.</p></div></div>
+      <div class="cap-item reveal"><span class="material-symbols-outlined">water_drop</span><div><h3>Hidrolavado</h3><p>Aseo industrial e hidrolavados de superficies y estructuras.</p></div></div>
+      <div class="cap-item reveal"><span class="material-symbols-outlined">draw</span><div><h3>Levantamientos técnicos</h3><p>Relevamiento y documentación técnica de infraestructura.</p></div></div>
+      <div class="cap-item reveal"><span class="material-symbols-outlined">map</span><div><h3>Planos y evacuación</h3><p>Planos de evacuación y planes de emergencia.</p></div></div>
+      <div class="cap-item reveal"><span class="material-symbols-outlined">engineering</span><div><h3>Prevención de riesgos</h3><p>Gestión de seguridad integrada a cada operación.</p></div></div>
+    </div>
+  </div>
+</section>
+<style>
+  .cap-item { display:flex; gap:1rem; padding-top:1.4rem; border-top:1px solid rgba(5,21,31,0.12); }
+  .cap-item span { color:#EC6240; font-size:28px; flex:none; }
+  .cap-item h3 { font-weight:700; color:#05151F; margin-bottom:.25rem; }
+  .cap-item p { color:rgba(5,21,31,0.6); font-size:.9rem; line-height:1.5; }
+</style>
+
+<!-- ===================================================== -->
+<!-- EXPERIENCIA (SWIPER)                                  -->
+<!-- ===================================================== -->
+<section id="experiencia" class="bg-deepblue py-24 sm:py-32 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12 reveal">
+      <div class="max-w-2xl">
+        <p class="eyebrow text-orange mb-5">Experiencia</p>
+        <h2 class="text-snow font-800 tracking-tight leading-[1.05] text-3xl sm:text-4xl lg:text-[2.9rem]">
+          Presencia en terreno desde 2017.
+        </h2>
+      </div>
+      <div class="flex gap-3">
+        <button class="exp-prev grid place-items-center w-11 h-11 border border-sky/30 text-snow hover:bg-white/5 transition" aria-label="Anterior"><span class="material-symbols-outlined">west</span></button>
+        <button class="exp-next grid place-items-center w-11 h-11 border border-sky/30 text-snow hover:bg-white/5 transition" aria-label="Siguiente"><span class="material-symbols-outlined">east</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- de aqui -->
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="swiper exp-swiper reveal">
+      <div class="swiper-wrapper">
+
+        <div class="swiper-slide">
+          <div class="imgph aspect-[4/3]">
+            <img
+              class="w-full h-full object-cover"
+              src="https://verticalspa.s3.us-west-2.amazonaws.com/team_images/Grupal.jpg"
+              alt="Equipo operativo"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="imgph-tag">
+              <span class="material-symbols-outlined" style="font-size:14px;">photo_camera</span>
+              Equipo operativo
+            </span>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="imgph aspect-[4/3]">
+            <img
+              class="w-full h-full object-cover"
+              src="https://verticalspa.s3.us-west-2.amazonaws.com/work_images/fachada+3.jpeg"
+              alt="Trabajo vertical"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="imgph-tag">
+              <span class="material-symbols-outlined" style="font-size:14px;">photo_camera</span>
+              Trabajo vertical
+            </span>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="imgph aspect-[4/3]">
+            <img
+              class="w-full h-full object-cover"
+              src="https://verticalspa.s3.us-west-2.amazonaws.com/work_images/fachada6.jpeg"
+              alt="Vista aérea urbana"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="imgph-tag">
+              <span class="material-symbols-outlined" style="font-size:14px;">photo_camera</span>
+              Vista aérea urbana
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- GALERÍA                                               -->
+<!-- ===================================================== -->
+<section id="galeria" class="relative bg-navy py-24 sm:py-32 overflow-hidden">
+  <div class="absolute inset-0 hero-grid opacity-25 pointer-events-none"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-12">
+      <div class="max-w-2xl reveal">
+        <p class="eyebrow text-orange mb-5">Galería</p>
+        <h2 class="text-snow font-800 tracking-tight leading-[1.05] text-3xl sm:text-4xl lg:text-[2.9rem]">
+          Nuestro equipo, en cada servicio.
+        </h2>
+        <p class="text-lightgrey/70 text-lg leading-relaxed mt-6">
+          Registro del trabajo en terreno: limpieza, mantenimiento y seguridad en altura.
+        </p>
+      </div>
+
+      <!-- Filtros por tipo de servicio -->
+      <div class="flex flex-wrap gap-2 reveal" role="group" aria-label="Filtrar galería por servicio">
+        <button class="gal-filter is-active" data-filter="all">Todos</button>
+        <button class="gal-filter" data-filter="limpieza">Limpieza</button>
+        <button class="gal-filter" data-filter="mantenimiento">Mantenimiento</button>
+        <button class="gal-filter" data-filter="seguridad">Seguridad</button>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div id="gallery-grid" class="grid grid-cols-2 lg:grid-cols-4 auto-rows-[180px] sm:auto-rows-[220px] gap-3 sm:gap-4">
+      <figure class="gal-item row-span-2" data-cat="limpieza">
+        <div class="imgph w-full h-full">
+          <img src="https://verticalspa.s3.us-west-2.amazonaws.com/work_images/fachada7.jpeg" alt="Limpieza de vidrios · fachada" class="w-full h-full object-cover" />
+          <span class="imgph-tag"><span class="material-symbols-outlined" style="font-size:14px;">cleaning_services</span> Limpieza de vidrios · fachada</span></div>
+      </figure>
+      <figure class="gal-item row-span-2" data-cat="seguridad">
+        <div class="imgph w-full h-full">
+          <img src="https://verticalspa.s3.us-west-2.amazonaws.com/work_images/lineavida.jpeg" alt="Instalación de línea de vida" class="w-full h-full object-cover" />
+          <span class="imgph-tag"><span class="material-symbols-outlined" style="font-size:14px;">anchor</span> Instalación de línea de vida</span></div>
+      </figure>
+      <figure class="gal-item row-span-2" data-cat="limpieza">
+        <div class="imgph w-full h-full">
+          <img src="https://verticalspa.s3.us-west-2.amazonaws.com/work_images/certanclajes2.jpeg" alt="Carro colgante" class="w-full h-full object-cover" />
+          <span class="imgph-tag"><span class="material-symbols-outlined" style="font-size:14px;">gondola_lift</span> Certificacion Anclajes</span></div>
+      </figure>
+      <figure class="gal-item row-span-2" data-cat="seguridad">
+        <div class="imgph w-full h-full">
+          <img src="https://verticalspa.s3.us-west-2.amazonaws.com/work_images/fachada8.jpeg" alt="Trabajo vertical · acceso por cuerdas" class="w-full h-full object-cover" />
+          <span class="imgph-tag"><span class="material-symbols-outlined" style="font-size:14px;">cable</span> Trabajo vertical · acceso por cuerdas</span></div>
+      </figure>
+      <figure class="gal-item row-span-2" data-cat="mantenimiento">
+        <div class="imgph w-full h-full">
+          <img src="https://verticalspa.s3.us-west-2.amazonaws.com/work_images/sellos.jpeg" alt="Reparación de sellos" class="w-full h-full object-cover" />
+          <span class="imgph-tag"><span class="material-symbols-outlined" style="font-size:14px;">build</span> Reparación de sellos</span></div>
+      </figure>
+      <figure class="gal-item row-span-2" data-cat="limpieza">
+        <div class="imgph w-full h-full">
+          <img src="https://verticalspa.s3.us-west-2.amazonaws.com/work_images/hidrolavado.jpeg" alt="Hidrolavado" class="w-full h-full object-cover" />
+          <span class="imgph-tag"><span class="material-symbols-outlined" style="font-size:14px;">water_drop</span> Hidrolavado</span></div>
+      </figure>
+      <figure class="gal-item row-span-2" data-cat="mantenimiento">
+        <div class="imgph w-full h-full">
+          <img src="https://verticalspa.s3.us-west-2.amazonaws.com/work_images/levantamiento2.png" alt="Levantamiento técnico" class="w-full h-full object-cover" />
+          <span class="imgph-tag"><span class="material-symbols-outlined" style="font-size:14px;">draw</span> Levantamiento técnico</span></div>
+      </figure>
+      <figure class="gal-item row-span-2" data-cat="limpieza">
+        <div class="imgph w-full h-full">
+          <img src="https://verticalspa.s3.us-west-2.amazonaws.com/work_images/vacuolavadora2.jpg.png" alt="Aseo industrial" class="w-full h-full object-cover" />
+          <span class="imgph-tag"><span class="material-symbols-outlined" style="font-size:14px;">factory</span> Aseo industrial</span></div>
+      </figure>
+    </div>
+  </div>
+</section>
+<style>
+  .gal-filter { font-weight:600; font-size:.82rem; letter-spacing:.02em; color:rgba(205,211,215,0.75);
+                border:1px solid rgba(160,204,234,0.25); padding:.5rem 1.05rem; transition:all .3s; }
+  .gal-filter:hover { color:#F9F9F9; border-color:rgba(160,204,234,0.5); }
+  .gal-filter.is-active { background:#EC6240; border-color:#EC6240; color:#05151F; }
+  .gal-item { overflow:hidden; transition:opacity .4s ease, transform .4s ease; }
+  .gal-item .imgph { transition:transform .6s cubic-bezier(.2,.7,.2,1); }
+  .gal-item:hover .imgph { transform:scale(1.04); }
+  .gal-item.is-hidden { display:none; }
+</style>
+
+<!-- ===================================================== -->
+<!-- ORGANIZACIÓN                                          -->
+<!-- ===================================================== -->
+<section id="organizacion" class="bg-snow text-navy py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="max-w-2xl mb-14 reveal">
+      <p class="eyebrow text-orange mb-5">Organización</p>
+      <h2 class="font-800 tracking-tight leading-[1.05] text-3xl sm:text-4xl lg:text-[2.9rem] mb-6">
+        Una empresa familiar con estructura profesional.
+      </h2>
+      <p class="text-navy/70 text-lg leading-relaxed">
+        Fundada en 2017, Vrope surge como una empresa familiar liderada por
+        <strong class="text-navy">Jorge Riquelme</strong>, Ingeniero en Prevención de Riesgos y
+        actual Gerente General. Su crecimiento se basa en formar equipos altamente profesionales,
+        confiables y comprometidos con la seguridad, eficiencia y calidad del servicio.
+      </p>
+    </div>
+
+    <!-- Estructura organizacional -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+      <div class="org-box"><span>01</span><p>Gerencia General</p></div>
+      <div class="org-box"><span>02</span><p>Administración y Finanzas</p></div>
+      <div class="org-box"><span>03</span><p>Administrador de Contrato</p></div>
+      <div class="org-box"><span>04</span><p>Tecnología y Desarrollo Estratégico</p></div>
+      <div class="org-box"><span>05</span><p>Operaciones</p></div>
+      <div class="org-box"><span>06</span><p>Logística</p></div>
+      <div class="org-box"><span>07</span><p>Prevención de Riesgos</p></div>
+    </div>
+
+    <!-- Retratos placeholder -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal">
+      <div>
+        <div class="imgph aspect-[3/4]">
+          <img class="w-full h-full object-cover" src="https://verticalspa.s3.us-west-2.amazonaws.com/team_images/Jorge.png" alt="Jorge Riquelme, Gerente General de Vrope" />
+        </div>
+        <p class="mt-3 font-700 text-navy">CEO & Director Ejecutivo</p>
+        <p class="text-sm text-navy/55">Jorge Riquelme Álvarez</p>
+      </div>
+      <div>
+        <div class="imgph aspect-[3/4]">
+          <img class="w-full h-full object-cover" src="https://verticalspa.s3.us-west-2.amazonaws.com/team_images/Karin.jpg" alt="Karin Bustos Jara, Gerente de Administración y Finanzas" />
+        </div>
+        <p class="mt-3 font-700 text-navy">Gerente Adm y Finanzas</p>
+        <p class="text-sm text-navy/55">Karin Bustos Jara</p>
+      </div>
+      <div>
+        <div class="imgph aspect-[3/4]">
+          <img class="w-full h-full object-cover" src="https://verticalspa.s3.us-west-2.amazonaws.com/team_images/Joseth.jpg" alt="Administrador de Contratos" />
+        </div>
+        <p class="mt-3 font-700 text-navy">Administrador de Contratos</p>
+        <p class="text-sm text-navy/55">Joseth Riquelme Pérez</p>
+      </div>
+      <div>
+        <div class="imgph aspect-[3/4]">
+          <img class="w-full h-full object-cover" src="https://verticalspa.s3.us-west-2.amazonaws.com/team_images/Francisco.jpg" alt="Francisco Parra, Supervisor General" />
+        </div>
+        <p class="mt-3 font-700 text-navy">Supervisor General</p>
+        <p class="text-sm text-navy/55">Francisco Parra Tapia</p>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .org-box { position:relative; border:1px solid rgba(5,21,31,0.14); padding:1.5rem 1.25rem; background:#fff; }
+  .org-box span { position:absolute; top:1rem; right:1rem; font-weight:800; color:rgba(236,98,64,0.55); font-size:.8rem; }
+  .org-box p { font-weight:700; color:#05151F; max-width:85%; line-height:1.3; }
+</style>
+
+<!-- ===================================================== -->
+<!-- PROYECCIÓN                                            -->
+<!-- ===================================================== -->
+<section id="proyeccion" class="relative bg-navy py-24 sm:py-32 overflow-hidden">
+  <div class="absolute inset-0 hero-grid opacity-30 pointer-events-none"></div>
+  <div class="relative max-w-4xl mx-auto px-5 sm:px-8 text-center reveal">
+    <p class="eyebrow text-orange mb-6">Proyección</p>
+    <h2 class="text-snow font-800 tracking-tight leading-[1.08] text-3xl sm:text-4xl lg:text-5xl">
+      Consolidarnos como referente nacional en trabajos verticales, mantenimiento especializado
+      y <span class="text-orange">seguridad en altura</span>.
+    </h2>
+    <p class="text-lightgrey/70 text-lg leading-relaxed mt-8 max-w-2xl mx-auto">
+      Cada proyecto suma a un mismo objetivo: llevar el estándar técnico y la cultura de
+      seguridad de Vrope a todo el país.
+    </p>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- CONTACTO                                              -->
+<!-- ===================================================== -->
+<section id="contacto" class="bg-snow text-navy py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-16">
+    <div class="reveal">
+      <p class="eyebrow text-orange mb-5">Contacto</p>
+      <h2 class="font-800 tracking-tight leading-[1.03] text-3xl sm:text-4xl lg:text-5xl mb-6">
+        Soluciones a la altura<br />de cada desafío.
+      </h2>
+      <p class="text-navy/65 text-lg leading-relaxed mb-10 max-w-md">
+        Cuéntanos tu requerimiento en trabajos verticales, mantenimiento o seguridad en altura.
+        Un especialista de Vrope te responderá.
+      </p>
+
+      <ul class="space-y-5">
+        <li class="flex items-center gap-4">
+          <span class="grid place-items-center w-11 h-11 bg-navy text-orange"><span class="material-symbols-outlined">call</span></span>
+          <div><p class="font-700">Teléfono</p><p class="text-navy/55 text-sm">+56 9 · 7836 3091</p></div>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="grid place-items-center w-11 h-11 bg-navy text-orange"><span class="material-symbols-outlined">mail</span></span>
+          <div><p class="font-700">Correo</p><p class="text-navy/55 text-sm">contacto@vrope.cl</p></div>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="grid place-items-center w-11 h-11 bg-navy text-orange"><span class="material-symbols-outlined">location_on</span></span>
+          <div><p class="font-700">Ubicación</p><p class="text-navy/55 text-sm">Villarrica 2962, 9510377 Maipo, Buin, Región Metropolitana</p></div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- FORM (front-end, sin envío real) -->
+    <div class="reveal bg-navy text-lightgrey p-8 sm:p-10">
+      <div class="grid sm:grid-cols-2 gap-5">
+        <label class="block sm:col-span-1">
+          <span class="form-label">Nombre</span>
+          <input type="text" class="form-input" placeholder="Tu nombre" />
+        </label>
+        <label class="block sm:col-span-1">
+          <span class="form-label">Empresa</span>
+          <input type="text" class="form-input" placeholder="Empresa" />
+        </label>
+        <label class="block sm:col-span-1">
+          <span class="form-label">Correo</span>
+          <input type="email" class="form-input" placeholder="correo@ejemplo.cl" />
+        </label>
+        <label class="block sm:col-span-1">
+          <span class="form-label">Teléfono</span>
+          <input type="tel" class="form-input" placeholder="+56 9 ..." />
+        </label>
+        <label class="block sm:col-span-2">
+          <span class="form-label">Mensaje</span>
+          <textarea rows="4" class="form-input resize-none" placeholder="Describe tu requerimiento"></textarea>
+        </label>
+      </div>
+      <button id="form-submit" class="mt-6 w-full inline-flex items-center justify-center gap-2 bg-orange text-navy font-700 py-3.5 hover:bg-[#f0805f] transition-colors">
+        Enviar mensaje
+        <span class="material-symbols-outlined" style="font-size:19px;">send</span>
+      </button>
+    </div>
+  </div>
+</section>
+<style>
+  .form-label { display:block; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:#A0CCEA; margin-bottom:.5rem; font-weight:700; }
+  .form-input { width:100%; background:rgba(160,204,234,0.06); border:1px solid rgba(160,204,234,0.2); color:#F9F9F9;
+                padding:.75rem .9rem; font-size:.95rem; transition:border-color .3s; }
+  .form-input::placeholder { color:rgba(205,211,215,0.4); }
+  .form-input:focus { border-color:#EC6240; }
+</style>
+
+<!-- ===================================================== -->
+<!-- BOTÓN FLOTANTE WHATSAPP                               -->
+<!-- ===================================================== -->
+<a id="wsp-float" href="#" target="_blank" rel="noopener"
+   class="fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-[60] group flex items-center gap-0"
+   aria-label="Escríbenos por WhatsApp">
+  <span class="wsp-label hidden sm:block max-w-0 overflow-hidden whitespace-nowrap
+               group-hover:max-w-[220px] transition-all duration-500 ease-out
+               bg-navy text-snow text-sm font-600 rounded-l-full pl-5 pr-3 py-3.5 border border-r-0 border-sky/25">
+    Escríbenos por WhatsApp
+  </span>
+  <span class="grid place-items-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg shadow-black/30
+               transition-transform duration-300 group-hover:scale-105 wsp-pulse">
+    <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" aria-hidden="true">
+      <path d="M16.04 4C9.9 4 4.92 8.98 4.92 15.12c0 2.13.6 4.12 1.63 5.82L4.5 28l7.24-1.9a11.06 11.06 0 0 0 4.3.86h.01c6.14 0 11.12-4.98 11.12-11.12S22.18 4 16.04 4Zm0 20.3h-.01c-1.32 0-2.62-.36-3.75-1.03l-.27-.16-3.78.99 1.01-3.68-.18-.28a9.16 9.16 0 0 1-1.4-4.9c0-5.06 4.12-9.18 9.19-9.18 2.45 0 4.76.96 6.49 2.69a9.13 9.13 0 0 1 2.69 6.49c0 5.06-4.12 9.18-9.19 9.18Zm5.04-6.87c-.28-.14-1.63-.8-1.88-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.16-.43-2.22-1.37-.82-.73-1.37-1.63-1.53-1.91-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.49.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.62-1.5-.85-2.05-.22-.53-.45-.46-.62-.47-.16-.01-.35-.01-.53-.01-.18 0-.49.07-.74.35-.25.28-.97.95-.97 2.31 0 1.36.99 2.68 1.13 2.86.14.18 1.95 2.98 4.73 4.18.66.29 1.17.46 1.58.59.66.21 1.27.18 1.75.11.53-.08 1.63-.67 1.86-1.31.23-.64.23-1.19.16-1.31-.07-.11-.25-.18-.53-.32Z"/>
+    </svg>
+  </span>
+</a>
+<style>
+  .wsp-pulse { position:relative; }
+  .wsp-pulse::after {
+    content:""; position:absolute; inset:0; border-radius:9999px;
+    box-shadow:0 0 0 0 rgba(37,211,102,0.55);
+    animation: wspPulse 2.4s infinite;
+  }
+  @keyframes wspPulse {
+    0%   { box-shadow:0 0 0 0 rgba(37,211,102,0.5); }
+    70%  { box-shadow:0 0 0 16px rgba(37,211,102,0); }
+    100% { box-shadow:0 0 0 0 rgba(37,211,102,0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .wsp-pulse::after { animation:none; } }
+</style>
+
+<!-- ===================================================== -->
+<!-- FOOTER                                                -->
+<!-- ===================================================== -->
+<footer class="bg-navy border-t border-sky/12 pt-16 pb-10">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="grid md:grid-cols-[1.4fr_1fr_1fr] gap-12 pb-14">
+      <div>
+        <div class="flex items-center gap-3 mb-5">
+          <img src="https://verticalspa.s3.us-west-2.amazonaws.com/logotypes/LOGO_8.png" alt="Logo Vrope Spa" class="h-8 w-auto object-contain" />
+        </div>
+        <p class="text-orange font-700 text-lg mb-3">Soluciones a la altura de cada desafío</p>
+        <p class="text-lightgrey/55 text-sm max-w-sm leading-relaxed">
+          Empresa chilena especializada en trabajos verticales, mantenimiento de infraestructura
+          y seguridad en altura.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow text-sky/60 mb-4">Navegación</p>
+        <ul class="space-y-2.5 text-sm text-lightgrey/70">
+          <li><a href="#nosotros" class="hover:text-orange transition">Nosotros</a></li>
+          <li><a href="#evolucion" class="hover:text-orange transition">Evolución</a></li>
+          <li><a href="#servicios" class="hover:text-orange transition">Servicios</a></li>
+          <li><a href="#galeria" class="hover:text-orange transition">Galería</a></li>
+          <li><a href="#seguridad" class="hover:text-orange transition">Seguridad</a></li>
+          <li><a href="#organizacion" class="hover:text-orange transition">Equipo</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow text-sky/60 mb-4">Contacto</p>
+        <ul class="space-y-2.5 text-sm text-lightgrey/70">
+          <li>+56 9 · 7836 3091</li>
+          <li>contacto@vrope.cl</li>
+          <li>Villarrica 2962, 9510377 Maipo, Buin, Región Metropolitana</li>
+          <li><a href="#contacto" class="text-orange hover:underline">Escríbenos →</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-sky/10 pt-7 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-lightgrey/40">
+      <p>© <span id="year"></span> Vrope Spa. Todos los derechos reservados.</p>
+      <p>Fundada en 2017 · Trabajos verticales &amp; seguridad en altura</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================================================== -->
+<!-- LIBRERÍAS                                              -->
+<!-- ===================================================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+/* ============================================================
+   CONFIG DEL VIDEO DEL HERO
+   Reemplazar por la URL del video institucional (mp4).
+   ============================================================ */
+const HERO_VIDEO_URL = "https://verticalspa.s3.us-west-2.amazonaws.com/videos/upscaled-video.mp4"; // ← INSERTAR URL DEL VIDEO AQUÍ (ej: "https://.../vrope.mp4")
+
+/* ============================================================
+   CONFIG DE WHATSAPP
+   Número en formato internacional SIN "+", espacios ni guiones.
+   Ej: Chile +56 9 1234 5678  ->  "56912345678"
+   ============================================================ */
+const WHATSAPP_NUMBER  = "56973863091"; // ← REEMPLAZAR por el número real
+const WHATSAPP_MESSAGE = "Hola Vrope Spa, me gustaría cotizar un servicio."; // mensaje precargado
+
+(function () {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+
+  /* ---------- Video del hero ---------- */
+  const video = document.getElementById('hero-video');
+  if (HERO_VIDEO_URL && video) {
+    video.src = HERO_VIDEO_URL;
+    video.addEventListener('canplay', () => { video.classList.remove('opacity-0'); }, { once: true });
+    video.play().catch(() => {}); // si el navegador bloquea autoplay, el fallback se mantiene
+  }
+
+  /* ---------- Menú móvil ---------- */
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobile-menu');
+  const setMenu = (open) => {
+    menu.classList.toggle('hidden', !open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.querySelector('.material-symbols-outlined').textContent = open ? 'close' : 'menu';
+  };
+  burger.addEventListener('click', () => setMenu(menu.classList.contains('hidden')));
+
+  /* ---------- Botón flotante de WhatsApp ---------- */
+  const wsp = document.getElementById('wsp-float');
+  if (wsp) {
+    wsp.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(WHATSAPP_MESSAGE);
+  }
+
+  /* ---------- Filtro de galería ---------- */
+  const galFilters = document.querySelectorAll('.gal-filter');
+  const galItems = document.querySelectorAll('.gal-item');
+  galFilters.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      galFilters.forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const f = btn.dataset.filter;
+      galItems.forEach((item) => {
+        const show = f === 'all' || item.dataset.cat === f;
+        item.classList.toggle('is-hidden', !show);
+      });
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    });
+  });
+
+  /* ---------- Header scroll state ---------- */
+  const header = document.getElementById('site-header');
+  const onScrollHeader = () => header.classList.toggle('glass', window.scrollY > 40);
+  onScrollHeader();
+  window.addEventListener('scroll', onScrollHeader, { passive: true });
+
+  /* ---------- Formulario demo ---------- */
+  const submit = document.getElementById('form-submit');
+  const note = document.getElementById('form-note');
+  if (submit) submit.addEventListener('click', () => {
+    note.textContent = 'Gracias. Este formulario es una demostración — conectar a un backend o servicio de correo.';
+    note.classList.remove('text-sky/50'); note.classList.add('text-orange');
+  });
+
+  /* ---------- Lenis + GSAP ---------- */
+  let lenis = null;
+  if (!prefersReduced) {
+    lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    lenis.on('scroll', () => { if (window.ScrollTrigger) ScrollTrigger.update(); });
+    if (window.gsap) {
+      gsap.ticker.add((t) => lenis.raf(t * 1000));
+      gsap.ticker.lagSmoothing(0);
+    }
+  }
+
+  /* Smooth-scroll para anclas */
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      setMenu(false);
+      if (lenis) lenis.scrollTo(el, { offset: -72 });
+      else el.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  if (!window.gsap) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ---------- Hero intro ---------- */
+  if (!prefersReduced) {
+    gsap.set('.hero-anim', { y: 30, opacity: 0 });
+    gsap.to('.hero-anim', { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', stagger: 0.12, delay: 0.2 });
+  }
+
+  /* ---------- Reveals genéricos ---------- */
+  if (!prefersReduced) {
+    gsap.utils.toArray('.reveal').forEach((el) => {
+      gsap.fromTo(el, { y: 30, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+      });
+    });
+  }
+
+  /* ---------- Contadores ---------- */
+  gsap.utils.toArray('.counter').forEach((el) => {
+    const target = +el.dataset.target;
+    const prefix = el.dataset.prefix || '';
+    const obj = { v: 0 };
+    ScrollTrigger.create({
+      trigger: el, start: 'top 85%', once: true,
+      onEnter: () => {
+        if (prefersReduced) { el.textContent = prefix + target.toLocaleString('es-CL'); return; }
+        gsap.to(obj, {
+          v: target, duration: 2, ease: 'power2.out',
+          onUpdate: () => { el.textContent = prefix + Math.round(obj.v).toLocaleString('es-CL'); },
+        });
+      },
+    });
+  });
+
+  /* ---------- SIGNATURE: Línea de vida (Evolución) ---------- */
+  const evoWrap = document.getElementById('evo-wrap');
+  const fill = document.getElementById('lifeline-fill');
+  const descender = document.getElementById('descender');
+  const nodes = gsap.utils.toArray('.anchor-node');
+
+  if (evoWrap && fill && descender) {
+    ScrollTrigger.create({
+      trigger: evoWrap,
+      start: 'top 60%',
+      end: 'bottom 75%',
+      scrub: prefersReduced ? false : 0.5,
+      onUpdate: (self) => {
+        const p = prefersReduced ? 1 : self.progress;
+        fill.style.height = (p * 100) + '%';
+        descender.style.top = 'calc(' + (p * 100) + '% - 16px)';
+      },
+    });
+
+    // Activación de nodos de anclaje
+    nodes.forEach((node) => {
+      ScrollTrigger.create({
+        trigger: node,
+        start: 'top 62%',
+        onEnter: () => node.classList.add('is-active'),
+        onLeaveBack: () => node.classList.remove('is-active'),
+      });
+    });
+  }
+
+  /* ---------- Swiper Experiencia ---------- */
+  if (window.Swiper) {
+    new Swiper('.exp-swiper', {
+      slidesPerView: 1.15,
+      spaceBetween: 20,
+      grabCursor: true,
+      navigation: { nextEl: '.exp-next', prevEl: '.exp-prev' },
+      breakpoints: {
+        640: { slidesPerView: 2.2, spaceBetween: 20 },
+        1024: { slidesPerView: 3.2, spaceBetween: 24 },
+      },
+    });
+  }
+
+  ScrollTrigger.refresh();
+})();
+</script>
+</body>
+</html>
