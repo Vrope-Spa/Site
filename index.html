@@ -1190,6 +1190,11 @@ const WHATSAPP_MESSAGE = "Hola Vrope Spa, me gustaría cotizar un servicio."; //
         return;
       }
 
+      // IMPORTANTE: capturar los datos ANTES de deshabilitar el fieldset.
+      // Un <fieldset disabled> excluye sus controles del envío, así que si
+      // creáramos el FormData después, name/email/phone/message irían vacíos.
+      const formData = new FormData(form);
+
       // Estado "enviando": spinner + deshabilitar TODOS los controles
       form.classList.add('is-loading');
       fields.disabled = true;
@@ -1199,7 +1204,7 @@ const WHATSAPP_MESSAGE = "Hola Vrope Spa, me gustaría cotizar un servicio."; //
         const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Accept': 'application/json' },
-          body: new FormData(form),
+          body: formData,
         });
         const data = await response.json();
 
